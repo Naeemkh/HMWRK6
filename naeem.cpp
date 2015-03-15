@@ -59,6 +59,16 @@ enum months {
     December
 };
 
+struct Earthquake{
+    
+    double lat;
+    double lon;
+    double depth;
+    string event_id;
+    
+};
+
+
 struct Event {
     Network_Code  nt_name;
     string        st_name;
@@ -89,7 +99,7 @@ void open_output(ofstream&, string);
 void print_output(ofstream&, ostream&,  string);
 void print_output(ofstream&, ostream&,  int);
 void ckeck_validate (string, string&, string, string, ofstream&, int &, int &, int &,float);
-void print_header(int, int, int, string&, string, string, float, string, string, double, double, double, ofstream&);
+void print_header(int, int, int, string&, string, string, float, string, Earthquake er_info[1], ofstream&);
 void generate_recorded_list (ofstream&, Event db[MAXSIZE], int &, int &);
 
 string Instro_Type_to_string (Instro_Type c);
@@ -112,7 +122,7 @@ int main() {
     ofstream outputfile;
     ofstream errorfile;
     
-    string event_id, event_date, event_time, time_zone, event_name,mag_t;
+    string  event_date, event_time, time_zone, event_name,mag_t;
     
     double lon,lat,depth;
     int month,day,year,total_entry,invalid_counter,valid_counter;
@@ -120,12 +130,13 @@ int main() {
     float mag;
     
     Event db[MAXSIZE];
+    Earthquake er_info[1];
     int number_of_events;
     
     open_input(inputfile ,errorfile);
     print_output(errorfile, cout,"Processing input ... \n");
     
-    inputfile >> event_id;
+    inputfile >> er_info[1].event_id;
     inputfile >> event_date;
     inputfile >> event_time;
     inputfile >> time_zone;
@@ -133,9 +144,9 @@ int main() {
     inputfile.ignore();
     getline(inputfile,event_name);
     
-    inputfile >> lon;
-    inputfile >> lat;
-    inputfile >> depth;
+    inputfile >> er_info[1].lon;
+    inputfile >> er_info[1].lat;
+    inputfile >> er_info[1].depth;
     
     inputfile >> mag_t;
     inputfile >> mag;
@@ -144,7 +155,7 @@ int main() {
     
     print_output(errorfile, cout,"Header read correctly! \n");
     open_output(outputfile,errorfile,"naeem.out");
-    print_header(month,day,year,event_time,time_zone,mag_t,mag,event_name,event_id,lon,lat,depth,outputfile);
+    print_header(month,day,year,event_time,time_zone,mag_t,mag,event_name,er_info,outputfile);
     
     read_input (inputfile,errorfile,db,number_of_events, total_co, invalid_counter, total_entry, valid_counter);
     
@@ -446,12 +457,12 @@ void ckeck_validate (string event_date, string & event_time,string time_zone, st
 }
 
 void print_header(int month,int day,int year,string &event_time,string time_zone,string mag_t,float mag,
-                  string event_name,string event_id,double lon,double lat,double depth,ofstream& outputfile){
+                  string event_name,Earthquake er_info[1],ofstream& outputfile){
     
     outputfile << "# " << day << " " << month_to_string(int_to_months(month)) << " "
                << year << " " << event_time << " " << time_zone << " "
                << Magnitude_Type_to_string(string_to_Magnitude_Type(mag_t)) << " "
-               << mag << " " << event_name << " " << "[" << event_id << "]" << "(" << lon <<", "<<lat<<", "<<depth<<")"<<"\n";
+               << mag << " " << event_name << " " << "[" << er_info[1].event_id << "]" << "(" << er_info[1].lon <<", "<< er_info[1].lat<<", "<< er_info[1].depth<<")"<<"\n";
    
 }
 

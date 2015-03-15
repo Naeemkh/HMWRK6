@@ -675,7 +675,7 @@ Instro_Type string_to_instro_Type (string s) {
     
     if (ss == "HIGH-GAIN")      return HighGain;
     if (ss == "LOW-GAIN")       return LowGain;
-    if (ss == "ACCELEREOMETER") return Accelerometer;
+    if (ss == "ACCELEROMETER") return Accelerometer;
     
     // It should never get here!!
     exit(EXIT_FAILURE);

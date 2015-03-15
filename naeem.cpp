@@ -1,7 +1,7 @@
 /*
  * Prog Tools for Scits Engrs - CIVL 8903/7903 001
  * Prof. Ricardo Taborda
- * Homework 4
+ * Homework 6
  * Written by : Naeem Khoshnevis (nkhshnvs@memphis.edu)
  * https://github.com/Naeemkh/HMW5.git
  * Feb 21 , 2015

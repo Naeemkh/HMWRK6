@@ -160,6 +160,7 @@ int main() {
     print_output(errorfile,cout,total_co);
     print_output(errorfile,cout,"\n");
     print_output(errorfile,cout,"Finished !");
+    print_output(errorfile,cout,"\n");
     
     generate_recorded_list (outputfile,db,number_of_events, total_co);
     

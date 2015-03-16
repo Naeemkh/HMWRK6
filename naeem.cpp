@@ -74,7 +74,6 @@ struct Earthquake{
     
 };
 
-
 struct Event {
     Network_Code  nt_name;
     string        st_name;
@@ -130,10 +129,10 @@ int main() {
     
     //string  event_date, event_time, time_zone, event_name,mag_t;
     
-    double lon,lat,depth;
+
     int month,day,year,total_entry,invalid_counter,valid_counter;
     int total_co = 0;
-    float mag;
+  
     
     Event db[MAXSIZE];
     Earthquake er_info[1];

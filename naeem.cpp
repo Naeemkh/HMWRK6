@@ -66,8 +66,10 @@ struct Earthquake{
     double depth;
     string event_id;
     string event_date;
-    string event_time;
+    string  event_time;
     string time_zone;
+    string mag_t;
+    float  mag;
     
 };
 
@@ -153,12 +155,15 @@ int main() {
     inputfile >> er_info[0].lat;
     inputfile >> er_info[0].depth;
     
-    inputfile >> mag_t;
-    inputfile >> mag;
+    inputfile >> er_info[0].mag_t;
+    inputfile >> er_info[0].mag;
     
     event_date = er_info[0].event_date;
     event_time = er_info[0].event_time;
-    time_zone = er_info[0].time_zone;
+    time_zone  = er_info[0].time_zone;
+    mag_t      = er_info[0].mag_t;
+    mag        = er_info[0].mag;
+    
     
     ckeck_validate (event_date, event_time, time_zone, mag_t, errorfile, month, day, year, mag);
     

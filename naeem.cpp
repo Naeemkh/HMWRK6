@@ -65,6 +65,9 @@ struct Earthquake{
     double lon;
     double depth;
     string event_id;
+    string event_date;
+    string event_time;
+    string time_zone;
     
 };
 
@@ -135,27 +138,35 @@ int main() {
     
     open_input(inputfile ,errorfile);
     print_output(errorfile, cout,"Processing input ... \n");
+ 
+    inputfile >> er_info[0].event_id;
+    inputfile >> er_info[0].event_date;
+    inputfile >> er_info[0].event_time;
+    inputfile >> er_info[0].time_zone;
     
-    inputfile >> er_info[1].event_id;
-    inputfile >> event_date;
-    inputfile >> event_time;
-    inputfile >> time_zone;
+    
     
     inputfile.ignore();
     getline(inputfile,event_name);
     
-    inputfile >> er_info[1].lon;
-    inputfile >> er_info[1].lat;
-    inputfile >> er_info[1].depth;
+    inputfile >> er_info[0].lon;
+    inputfile >> er_info[0].lat;
+    inputfile >> er_info[0].depth;
     
     inputfile >> mag_t;
     inputfile >> mag;
+    
+    event_date = er_info[0].event_date;
+    event_time = er_info[0].event_time;
+    time_zone = er_info[0].time_zone;
     
     ckeck_validate (event_date, event_time, time_zone, mag_t, errorfile, month, day, year, mag);
     
     print_output(errorfile, cout,"Header read correctly! \n");
     open_output(outputfile,errorfile,"naeem.out");
     print_header(month,day,year,event_time,time_zone,mag_t,mag,event_name,er_info,outputfile);
+    
+    cout << "Line 1" << "\n";
     
     read_input (inputfile,errorfile,db,number_of_events, total_co, invalid_counter, total_entry, valid_counter);
     

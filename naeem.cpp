@@ -66,8 +66,9 @@ struct Earthquake{
     double depth;
     string event_id;
     string event_date;
-    string  event_time;
+    string event_time;
     string time_zone;
+    string event_name;
     string mag_t;
     float  mag;
     
@@ -103,8 +104,8 @@ void open_output(ofstream&, ofstream&, string);
 void open_output(ofstream&, string);
 void print_output(ofstream&, ostream&,  string);
 void print_output(ofstream&, ostream&,  int);
-void ckeck_validate (string, string&, string, string, ofstream&, int &, int &, int &,float);
-void print_header(int, int, int, string&, string, string, float, string, Earthquake er_info[1], ofstream&);
+void check_validate (Earthquake er_info[1], ofstream&, int &, int &, int &);
+void print_header(int, int, int,  Earthquake er_info[1], ofstream&);
 void generate_recorded_list (ofstream&, Event db[MAXSIZE], int &, int &);
 
 string Instro_Type_to_string (Instro_Type c);
@@ -127,7 +128,7 @@ int main() {
     ofstream outputfile;
     ofstream errorfile;
     
-    string  event_date, event_time, time_zone, event_name,mag_t;
+    //string  event_date, event_time, time_zone, event_name,mag_t;
     
     double lon,lat,depth;
     int month,day,year,total_entry,invalid_counter,valid_counter;
@@ -149,7 +150,7 @@ int main() {
     
     
     inputfile.ignore();
-    getline(inputfile,event_name);
+    getline(inputfile,er_info[0].event_name);
     
     inputfile >> er_info[0].lon;
     inputfile >> er_info[0].lat;
@@ -157,21 +158,14 @@ int main() {
     
     inputfile >> er_info[0].mag_t;
     inputfile >> er_info[0].mag;
+
     
-    event_date = er_info[0].event_date;
-    event_time = er_info[0].event_time;
-    time_zone  = er_info[0].time_zone;
-    mag_t      = er_info[0].mag_t;
-    mag        = er_info[0].mag;
-    
-    
-    ckeck_validate (event_date, event_time, time_zone, mag_t, errorfile, month, day, year, mag);
+    check_validate (er_info, errorfile, month, day, year);
     
     print_output(errorfile, cout,"Header read correctly! \n");
     open_output(outputfile,errorfile,"naeem.out");
-    print_header(month,day,year,event_time,time_zone,mag_t,mag,event_name,er_info,outputfile);
+    print_header(month,day,year,er_info,outputfile);
     
-    cout << "Line 1" << "\n";
     
     read_input (inputfile,errorfile,db,number_of_events, total_co, invalid_counter, total_entry, valid_counter);
     
@@ -446,7 +440,13 @@ string uppercase (string & s) {
     return result;
 }
 
-void ckeck_validate (string event_date, string & event_time,string time_zone, string mag_t, ofstream & errorfile, int & month,int & day,int & year,float mag){
+void check_validate (Earthquake er_info[1], ofstream & errorfile, int & month,int & day,int & year){
+    
+    string event_date = er_info[0].event_date;
+    string event_time = er_info[0].event_time;
+    float mag = er_info[0].mag;
+    string mag_t = er_info[0].mag_t;
+    string time_zone = er_info[0].time_zone;
     
     if (is_date_valid(event_date,month,day,year) !=0){
         print_output(errorfile, cout,"Date format is not valid. \n");
@@ -472,13 +472,12 @@ void ckeck_validate (string event_date, string & event_time,string time_zone, st
         
 }
 
-void print_header(int month,int day,int year,string &event_time,string time_zone,string mag_t,float mag,
-                  string event_name,Earthquake er_info[1],ofstream& outputfile){
+void print_header(int month,int day,int year,Earthquake er_info[1],ofstream& outputfile){
     
     outputfile << "# " << day << " " << month_to_string(int_to_months(month)) << " "
-               << year << " " << event_time << " " << time_zone << " "
-               << Magnitude_Type_to_string(string_to_Magnitude_Type(mag_t)) << " "
-               << mag << " " << event_name << " " << "[" << er_info[1].event_id << "]" << "(" << er_info[1].lon <<", "<< er_info[1].lat<<", "<< er_info[1].depth<<")"<<"\n";
+               << year << " " << er_info[0].event_time << " " << er_info[0].time_zone << " "
+               << Magnitude_Type_to_string(string_to_Magnitude_Type(er_info[0].mag_t)) << " "
+               << er_info[0].mag << " " << er_info[0].event_name << " " << "[" << er_info[0].event_id << "]" << "(" << er_info[0].lon <<", "<< er_info[0].lat<<", "<< er_info[0].depth<<")"<<"\n";
    
 }
 

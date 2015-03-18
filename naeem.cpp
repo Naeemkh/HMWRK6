@@ -15,12 +15,16 @@
 #include <iomanip>
 #include <string.h>
 
+#include "earthquake.h"
+#include "station.h"
+
 using namespace std;
 
 enum Magnitude_Type {
 	ML, Ms, Mb, Mw
 };
 
+/*
 enum Network_Code {
 	CE, CI, FA, NP, WR
 };
@@ -32,6 +36,8 @@ enum Band_Type {
 enum Instro_Type {
 	HighGain, LowGain, Accelerometer
 };
+
+ */
 
 enum months {
 	January = 1,
@@ -48,6 +54,7 @@ enum months {
 	December
 };
 
+/*
 struct Earthquake {
 
 	double lat;
@@ -62,7 +69,9 @@ struct Earthquake {
 	float  mag;
 
 };
+*/
 
+/*
 struct Event {
 	Network_Code nt_name;
 	string st_name;
@@ -70,6 +79,7 @@ struct Event {
 	Instro_Type Ins_type;
 	string orientation;
 };
+ */
 
 const int MAXSIZE = 300;
 

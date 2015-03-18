@@ -24,21 +24,6 @@ enum Magnitude_Type {
 	ML, Ms, Mb, Mw
 };
 
-/*
-enum Network_Code {
-	CE, CI, FA, NP, WR
-};
-
-enum Band_Type {
-	Longperiod, Shortperiod, Broadband
-};
-
-enum Instro_Type {
-	HighGain, LowGain, Accelerometer
-};
-
- */
-
 enum months {
 	January = 1,
 	February,
@@ -53,33 +38,6 @@ enum months {
 	November,
 	December
 };
-
-/*
-struct Earthquake {
-
-	double lat;
-	double lon;
-	double depth;
-	string event_id;
-	string event_date;
-	string event_time;
-	string time_zone;
-	string event_name;
-	string mag_t;
-	float  mag;
-
-};
-*/
-
-/*
-struct Event {
-	Network_Code nt_name;
-	string st_name;
-	Band_Type b_type;
-	Instro_Type Ins_type;
-	string orientation;
-};
- */
 
 const int MAXSIZE = 300;
 
@@ -119,6 +77,12 @@ Band_Type string_to_Band_Type(string);
 Instro_Type string_to_instro_Type(string);
 Magnitude_Type string_to_Magnitude_Type(string);
 
+
+
+void set_lat(Earthquake er_info[1],ofstream&, double);
+void set_lon(Earthquake er_info[1],ofstream&, double);
+void set_depth(Earthquake er_info[1],ofstream&, double);
+
 /********************************* main function ****************************************/
 
 int main() {
@@ -131,6 +95,7 @@ int main() {
 
     int month = 0, day = 0, year = 0;
     int total_entry = 0, invalid_counter = 0, valid_counter = 0, total_co = 0;
+    double temp_lat, temp_lon, temp_depth;
 
 	Event db[MAXSIZE];
 	Earthquake er_info[1];
@@ -147,9 +112,15 @@ int main() {
 	inputfile.ignore();
 	getline(inputfile, er_info[0].event_name);
 
-	inputfile >> er_info[0].lon;
-	inputfile >> er_info[0].lat;
-	inputfile >> er_info[0].depth;
+	inputfile >> temp_lon;
+	inputfile >> temp_lat;
+    inputfile >> temp_depth;
+    
+    set_lon(er_info,errorfile,temp_lon);
+    set_lat(er_info,errorfile,temp_lat);
+    set_depth(er_info,errorfile,temp_depth);
+    
+	
 
 	inputfile >> er_info[0].mag_t;
 	inputfile >> er_info[0].mag;
@@ -848,4 +819,35 @@ void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile, Event d
 
 	}
 }
+
+void set_lat(Earthquake er_info[1], ofstream& errorfile, double lat){
+    if ( -60 <= lat && lat <= 60){
+        er_info[0].lat = lat;
+    } else {
+        print_output(errorfile, cout, "Latitude is not valid. \n");
+        errorfile.close();
+        exit(1);
+    }
+}
+
+void set_lon(Earthquake er_info[1], ofstream& errorfile, double lon){
+    if ( -180 <= lon && lon <= 180){
+        er_info[0].lon = lon;
+    } else {
+        print_output(errorfile, cout, "Longitude is not valid. \n");
+        errorfile.close();
+        exit(1);
+    }
+}
+
+void set_depth(Earthquake er_info[1], ofstream& errorfile, double depth){
+    if ( 0 <= depth ){
+        er_info[0].depth = depth;
+    } else {
+        print_output(errorfile, cout, "Depth of earthquake is not valid. \n");
+        errorfile.close();
+        exit(1);
+    }
+}
+
 

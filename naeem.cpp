@@ -91,6 +91,10 @@ void set_event_name(Earthquake er_info[1], ofstream&, string);
 void set_mag_type(Earthquake er_info[1], ofstream&, string);
 void set_mag(Earthquake er_info[1], ofstream&,float);
 
+double get_lat(Earthquake er_info[1],string);
+double get_lon(Earthquake er_info[1],string);
+double get_depth(Earthquake er_info[1],string);
+
 /********************************* main function ****************************************/
 
 int main() {
@@ -127,6 +131,9 @@ int main() {
 	inputfile >> t_lat;
     inputfile >> t_depth;
     
+    inputfile >> t_mag_t;
+    inputfile >> t_mag;
+    
     set_lon(er_info,errorfile,t_lon);
     set_lat(er_info,errorfile,t_lat);
     set_depth(er_info,errorfile,t_depth);
@@ -140,13 +147,6 @@ int main() {
     set_mag(er_info,errorfile,t_mag);
 
 
-
-    
-    
-	
-
-	inputfile >> er_info[0].mag_t;
-	inputfile >> er_info[0].mag;
 
 	check_validate(er_info, errorfile, month, day, year);
 
@@ -519,15 +519,17 @@ void check_validate(Earthquake er_info[1], ofstream & errorfile, int & month,
 
 void print_header(int month, int day, int year, Earthquake er_info[1],
 		ofstream& outputfile) {
-
+    
+    string lat,lon,depth;
+    
 	outputfile << "# " << day << " " << month_to_string(int_to_months(month))
 			<< " " << year << " " << er_info[0].event_time << " "
 			<< er_info[0].time_zone << " "
 			<< Magnitude_Type_to_string(
 					string_to_Magnitude_Type(er_info[0].mag_t)) << " "
 			<< er_info[0].mag << " " << er_info[0].event_name << " " << "["
-			<< er_info[0].event_id << "]" << "(" << er_info[0].lon << ", "
-			<< er_info[0].lat << ", " << er_info[0].depth << ")" << "\n";
+			<< er_info[0].event_id << "]" << "(" << get_lon(er_info,lon) << ", "
+			<< get_lat(er_info,lat) << ", " << get_depth(er_info,depth) << ")" << "\n";
 
 }
 
@@ -853,6 +855,10 @@ void set_lat(Earthquake er_info[1], ofstream& errorfile, double lat){
     }
 }
 
+double get_lat(Earthquake er_info[1],string lat){
+    return er_info[0].lat;
+}
+
 void set_lon(Earthquake er_info[1], ofstream& errorfile, double lon){
     if ( -180 <= lon && lon <= 180){
         er_info[0].lon = lon;
@@ -863,6 +869,10 @@ void set_lon(Earthquake er_info[1], ofstream& errorfile, double lon){
     }
 }
 
+double get_lon(Earthquake er_info[1],string lon){
+    return er_info[0].lon;
+}
+
 void set_depth(Earthquake er_info[1], ofstream& errorfile, double depth){
     if ( 0 <= depth ){
         er_info[0].depth = depth;
@@ -871,6 +881,10 @@ void set_depth(Earthquake er_info[1], ofstream& errorfile, double depth){
         errorfile.close();
         exit(1);
     }
+}
+
+double get_depth(Earthquake er_info[1],string depth){
+    return er_info[0].depth;
 }
 
 void set_event_id(Earthquake er_info[1], ofstream& errorfile, string event_id){

@@ -83,6 +83,14 @@ void set_lat(Earthquake er_info[1],ofstream&, double);
 void set_lon(Earthquake er_info[1],ofstream&, double);
 void set_depth(Earthquake er_info[1],ofstream&, double);
 
+void set_event_id(Earthquake er_info[1], ofstream&, string);
+void set_event_date(Earthquake er_info[1], ofstream&, string);
+void set_event_time(Earthquake er_info[1], ofstream&, string);
+void set_time_zone(Earthquake er_info[1], ofstream&, string);
+void set_event_name(Earthquake er_info[1], ofstream&, string);
+void set_mag_type(Earthquake er_info[1], ofstream&, string);
+void set_mag(Earthquake er_info[1], ofstream&,float);
+
 /********************************* main function ****************************************/
 
 int main() {
@@ -95,8 +103,11 @@ int main() {
 
     int month = 0, day = 0, year = 0;
     int total_entry = 0, invalid_counter = 0, valid_counter = 0, total_co = 0;
-    double temp_lat, temp_lon, temp_depth;
-
+    double t_lat, t_lon, t_depth;
+    string t_event_id,t_event_name, t_event_date, t_event_time, t_time_zone,t_mag_t;
+    float t_mag;
+    
+    
 	Event db[MAXSIZE];
 	Earthquake er_info[1];
 	int number_of_events;
@@ -104,21 +115,33 @@ int main() {
 	open_input(inputfile, errorfile);
 	print_output(errorfile, cout, "Processing input ... \n");
 
-	inputfile >> er_info[0].event_id;
-	inputfile >> er_info[0].event_date;
-	inputfile >> er_info[0].event_time;
-	inputfile >> er_info[0].time_zone;
+	inputfile >> t_event_id;
+	inputfile >> t_event_date;
+	inputfile >> t_event_time;
+	inputfile >> t_time_zone;
 
 	inputfile.ignore();
-	getline(inputfile, er_info[0].event_name);
+	getline(inputfile, t_event_name);
 
-	inputfile >> temp_lon;
-	inputfile >> temp_lat;
-    inputfile >> temp_depth;
+	inputfile >> t_lon;
+	inputfile >> t_lat;
+    inputfile >> t_depth;
     
-    set_lon(er_info,errorfile,temp_lon);
-    set_lat(er_info,errorfile,temp_lat);
-    set_depth(er_info,errorfile,temp_depth);
+    set_lon(er_info,errorfile,t_lon);
+    set_lat(er_info,errorfile,t_lat);
+    set_depth(er_info,errorfile,t_depth);
+    
+    set_event_id(er_info,errorfile,t_event_id);
+    set_event_date(er_info,errorfile,t_event_date);
+    set_event_time(er_info,errorfile,t_event_time);
+    set_time_zone(er_info,errorfile,t_time_zone);
+    set_event_name(er_info,errorfile,t_event_name);
+    set_mag_type(er_info,errorfile,t_mag_t);
+    set_mag(er_info,errorfile,t_mag);
+
+
+
+    
     
 	
 
@@ -848,6 +871,50 @@ void set_depth(Earthquake er_info[1], ofstream& errorfile, double depth){
         errorfile.close();
         exit(1);
     }
+}
+
+void set_event_id(Earthquake er_info[1], ofstream& errorfile, string event_id){
+    
+        er_info[0].event_id = event_id;
+
+}
+
+
+void set_event_date(Earthquake er_info[1], ofstream& errorfile, string event_date){
+    
+    er_info[0].event_date = event_date;
+    
+}
+
+void set_event_time(Earthquake er_info[1], ofstream& errorfile, string event_time){
+    
+    er_info[0].event_time = event_time;
+    
+}
+
+void set_time_zone(Earthquake er_info[1], ofstream& errorfile, string time_zone){
+    
+    er_info[0].time_zone = time_zone;
+    
+}
+
+void set_event_name(Earthquake er_info[1], ofstream& errorfile, string event_name){
+    
+    er_info[0].event_name = event_name;
+    
+}
+
+void set_mag_type(Earthquake er_info[1], ofstream& errorfile, string mag_t){
+    
+    er_info[0].mag_t = mag_t;
+    
+}
+
+
+void set_mag(Earthquake er_info[1], ofstream& errorfile, float  mag){
+    
+    er_info[0].mag = mag;
+    
 }
 
 

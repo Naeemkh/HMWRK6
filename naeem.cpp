@@ -18,6 +18,8 @@
 #include "earthquake.h"
 #include "station.h"
 
+#include "io_print_handler.h"
+
 using namespace std;
 
 enum Magnitude_Type {
@@ -56,11 +58,11 @@ bool is_or_valid(string);
 bool read_input(ifstream&, ofstream&, Event db[MAXSIZE], int &, int &, int &,
 		int &, int &);
 
-void open_input(ifstream&, ofstream&);
-void open_output(ofstream&, ofstream&, string);
-void open_output(ofstream&, string);
-void print_output(ofstream&, ostream&, string);
-void print_output(ofstream&, ostream&, int);
+//void open_input(ifstream&, ofstream&);
+//void open_output(ofstream&, ofstream&, string);
+//void open_output(ofstream&, string);
+//void print_output(ofstream&, ostream&, string);
+//void print_output(ofstream&, ostream&, int);
 void check_validate(Earthquake er_info[1], ofstream&, int &, int &, int &);
 void print_header(int, int, int, Earthquake er_info[1], ofstream&);
 void generate_recorded_list(Earthquake er_info[1], ofstream&, Event db[MAXSIZE],
@@ -196,6 +198,7 @@ int main() {
 
 /********************************* function definition **********************************/
 
+/*
 void open_input(ifstream & inputfile, ofstream & errorfile) {
 
 	string inputfilename;
@@ -257,6 +260,7 @@ void print_output(ofstream & output1, ostream & output2, int string1) {
 	output2 << string1;
 }
 
+ */
 bool is_date_valid(string event_date, int & month, int & day, int & year) {
 
 	int s = event_date.size();

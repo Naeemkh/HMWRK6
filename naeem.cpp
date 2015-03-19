@@ -41,7 +41,7 @@ enum months {
 	December
 };
 
-const int MAXSIZE = 300;
+//const int MAXSIZE = 300;
 
 /***************************** function prototypes *************************************/
 
@@ -103,7 +103,7 @@ string get_time_zone(Earthquake er_info[1], string);
 string get_event_name(Earthquake er_info[1], string);
 string get_mag_type(Earthquake er_info[1], string);
 float get_mag(Earthquake er_info[1], string);
-*/
+
 void set_nt_name(Event db[MAXSIZE], int, Network_Code);
 void set_st_name(Event db[MAXSIZE], int size, string);
 void set_b_type(Event db[MAXSIZE], int size, Band_Type);
@@ -116,6 +116,8 @@ Band_Type get_band_type(Event db[MAXSIZE], int, string);
 Instro_Type get_Ins_type(Event db[MAXSIZE], int, string);
 string get_orientation(Event db[MAXSIZE], int, string);
 
+*/
+ 
 /********************************* main function ****************************************/
 
 int main() {
@@ -989,7 +991,6 @@ float get_mag(Earthquake er_info[1], string magnitude) {
 	return er_info[0].mag;
 }
 
-*/
 
 void set_nt_name(Event db[MAXSIZE], int size, Network_Code nt_name) {
 
@@ -1035,3 +1036,4 @@ string get_orientation(Event db[MAXSIZE], int size, string orientation) {
 	return db[size].orientation;
 }
 
+ */

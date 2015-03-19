@@ -109,7 +109,11 @@ void set_b_type(Event db[MAXSIZE],int size, Band_Type);
 void set_Ins_type(Event db[MAXSIZE],int size, Instro_Type);
 void set_orientation(Event db[MAXSIZE],int size, string);
 
-
+Network_Code get_nt_name(Event db[MAXSIZE],int, string);
+string get_st_name(Event db[MAXSIZE],int, string);
+Band_Type get_band_type(Event db[MAXSIZE],int , string);
+Instro_Type get_Ins_type(Event db[MAXSIZE],int , string);
+string get_orientation (Event db[MAXSIZE],int , string );
 
 
 
@@ -850,18 +854,18 @@ string Instro_Type_to_string(Instro_Type c) {
 void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile, Event db[MAXSIZE], int & size,
 		int & total_co) {
     
-    string event_id;
+    string event_id,nt_name,orientation,st_name,b_type,Ins_type;
 
 	outputfile << total_co << "\n";
 
 	for (int i = 0; i < size; i++) {
-		int sc = db[i].orientation.size();
+		int sc = get_orientation(db,i,orientation).size();
 
 		for (int j = 0; j < sc; j++) {
-			outputfile << get_event_id(er_info,event_id) << Network_Code_to_string(db[i].nt_name) << "."
-					<< db[i].st_name << "." << Band_Type_to_string(db[i].b_type)
-					<< Instro_Type_to_string(db[i].Ins_type)
-					<< db[i].orientation[j] << "\n";
+			outputfile << get_event_id(er_info,event_id) << get_nt_name(db,i,nt_name) << "."
+					<< get_st_name(db,i,st_name) << "." << Band_Type_to_string(get_band_type(db,i,b_type))
+					<< Instro_Type_to_string(get_Ins_type(db,i,Ins_type))
+					<< get_orientation(db,i,orientation)[j] << "\n";
 
 		}
 
@@ -993,19 +997,38 @@ void set_nt_name(Event db[MAXSIZE],int size, Network_Code nt_name){
     db[size].nt_name = nt_name;
 }
 
-void set_st_name(Event db[MAXSIZE],int size, string st_name){
+Network_Code get_nt_name(Event db[MAXSIZE],int size, string nt_name){
     
+    return db[size].nt_name;
+}
+
+
+
+void set_st_name(Event db[MAXSIZE],int size, string st_name){
     db[size].st_name = st_name;
 }
 
+string get_st_name(Event db[MAXSIZE],int size, string st_name){
+    return db[size].st_name;
+}
+
+
 void set_b_type(Event db[MAXSIZE],int size, Band_Type b_type){
-    
     db[size].b_type = b_type;
 }
+
+Band_Type get_band_type(Event db[MAXSIZE],int size, string b_type){
+    return db[size].b_type;
+}
+
 
 void set_Ins_type(Event db[MAXSIZE],int size, Instro_Type Ins_type){
     
     db[size].Ins_type = Ins_type;
+}
+
+Instro_Type get_Ins_type(Event db[MAXSIZE],int size, string Ins_type){
+    return db[size].Ins_type;
 }
 
 
@@ -1014,6 +1037,9 @@ void set_orientation(Event db[MAXSIZE],int size, string orientation){
     db[size].orientation = orientation;
 }
 
+string get_orientation (Event db[MAXSIZE],int size, string orientation){
+    return db[size].orientation;
+}
 
 
 

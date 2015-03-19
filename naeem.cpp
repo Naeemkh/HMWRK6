@@ -103,6 +103,9 @@ string get_event_name(Earthquake er_info[1], string);
 string get_mag_type(Earthquake er_info[1], string);
 float get_mag(Earthquake er_info[1], string);
 
+void set_nt_name(Event db[MAXSIZE],int, Network_Code);
+
+
 /********************************* main function ****************************************/
 
 int main() {
@@ -628,8 +631,9 @@ bool read_input(ifstream& inputfile, ofstream& errorfile, Event db[MAXSIZE],
 
 		if (save_record_flag == 1) {
 
-			db[size].nt_name = string_to_Network_Code(nt_name);
-			db[size].st_name = st_name;
+			//db[size].nt_name = string_to_Network_Code(nt_name);
+            set_nt_name(db,size,string_to_Network_Code(nt_name));
+            db[size].st_name = st_name;
 			db[size].b_type = string_to_Band_Type(b_type);
 			db[size].Ins_type = string_to_instro_Type(Ins_type);
 			db[size].orientation = orientation;
@@ -973,7 +977,21 @@ float get_mag(Earthquake er_info[1],string magnitude){
 }
 
 
+void set_nt_name(Event db[MAXSIZE],int size, Network_Code nt_name){
+    
+    db[size].nt_name = nt_name;
+}
 
+
+
+
+/*
+db[size].nt_name = string_to_Network_Code(nt_name);
+db[size].st_name = st_name;
+db[size].b_type = string_to_Band_Type(b_type);
+db[size].Ins_type = string_to_instro_Type(Ins_type);
+db[size].orientation = orientation;
+*/
 
 
 

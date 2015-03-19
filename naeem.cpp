@@ -3,8 +3,8 @@
  * Prof. Ricardo Taborda
  * Homework 6
  * Written by : Naeem Khoshnevis (nkhshnvs@memphis.edu)
- * https://github.com/Naeemkh/HMW5.git
- * Feb 21 , 2015
+ * https://github.com/Naeemkh/HMWRK6.git
+ * March 15 , 2015
  */
 
 #include <iostream>
@@ -17,14 +17,9 @@
 
 #include "earthquake.h"
 #include "station.h"
-
 #include "io_print_handler.h"
 
 using namespace std;
-
-enum Magnitude_Type {
-    ML, Ms, Mb, Mw
-};
 
 enum months {
     January = 1,
@@ -546,7 +541,7 @@ bool read_input(ifstream& inputfile, ofstream& errorfile, Event db[MAXSIZE],
             set_orientation(db, size, orientation);
 
             total_co = total_co + orientation.size();
-            
+
             size++;
 
         } else {
@@ -587,24 +582,20 @@ bool is_instrument_valid(string Ins_type) {
     return ins_flag;
 }
 
-//////////////////////////////////////////
-
 bool is_station_valid(string st_name) {
     bool st_flag = 0;
     string ss = uppercase(st_name);
     int sn = st_name.size();
-    
+
     stringstream st_sst;
     int st_in;
     string st_string;
-    
+
     st_sst << st_name;
     st_sst >> st_in;
     st_sst << st_in;
     st_sst >> st_string;
-    
-    //cout << "station name: " << st_name << "station in: " << st_in << "station st" << st_string << "\n";
-    
+
     if (sn == 3 && ss == st_name && st_string == "") {
         st_flag = 1;
     }
@@ -771,9 +762,9 @@ void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile,
         int sc = get_orientation(db, i, orientation).size();
 
         for (int j = 0; j < sc; j++) {
-            outputfile << get_event_id(er_info, event_id)
-                    << Network_Code_to_string(get_nt_name(db, i, nt_name)) << "."
-                    << get_st_name(db, i, st_name) << "."
+            outputfile << get_event_id(er_info, event_id) << "."
+                    << Network_Code_to_string(get_nt_name(db, i, nt_name))
+                    << "." << get_st_name(db, i, st_name) << "."
                     << Band_Type_to_string(get_band_type(db, i, b_type))
                     << Instro_Type_to_string(get_Ins_type(db, i, Ins_type))
                     << get_orientation(db, i, orientation)[j] << "\n";
@@ -782,5 +773,4 @@ void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile,
 
     }
 }
-
 

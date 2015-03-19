@@ -8,6 +8,12 @@
 
 using namespace std;
 
+
+enum Magnitude_Type {
+    ML, Ms, Mb, Mw
+};
+
+
 struct Earthquake {
 
     double lat;

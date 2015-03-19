@@ -95,6 +95,14 @@ double get_lat(Earthquake er_info[1],string);
 double get_lon(Earthquake er_info[1],string);
 double get_depth(Earthquake er_info[1],string);
 
+string get_event_id(Earthquake er_info[1], string);
+string get_event_date(Earthquake er_info[1], string);
+string get_event_time(Earthquake er_info[1], string);
+string get_time_zone(Earthquake er_info[1], string);
+string get_event_name(Earthquake er_info[1], string);
+string get_mag_type(Earthquake er_info[1], string);
+float get_mag(Earthquake er_info[1], string);
+
 /********************************* main function ****************************************/
 
 int main() {
@@ -487,11 +495,14 @@ string uppercase(string & s) {
 void check_validate(Earthquake er_info[1], ofstream & errorfile, int & month,
 		int & day, int & year) {
 
-	string event_date = er_info[0].event_date;
-	string event_time = er_info[0].event_time;
-	float mag = er_info[0].mag;
-	string mag_t = er_info[0].mag_t;
-	string time_zone = er_info[0].time_zone;
+    string event_date, event_time, mag_t,time_zone,magnitude;
+    float mag;
+    
+	event_date = get_event_date(er_info,event_date);
+    event_time = get_event_time(er_info,event_time);
+	mag = get_mag(er_info,magnitude);
+	mag_t = get_mag_type(er_info,mag_t);
+	time_zone = get_time_zone(er_info,time_zone);
 
 	if (is_date_valid(event_date, month, day, year) != 0) {
 		print_output(errorfile, cout, "Date format is not valid. \n");
@@ -520,15 +531,14 @@ void check_validate(Earthquake er_info[1], ofstream & errorfile, int & month,
 void print_header(int month, int day, int year, Earthquake er_info[1],
 		ofstream& outputfile) {
     
-    string lat,lon,depth;
+    string lat,lon,depth,event_id,mag,event_name,magnitude,event_time,time_zone,mag_t;
     
 	outputfile << "# " << day << " " << month_to_string(int_to_months(month))
-			<< " " << year << " " << er_info[0].event_time << " "
-			<< er_info[0].time_zone << " "
-			<< Magnitude_Type_to_string(
-					string_to_Magnitude_Type(er_info[0].mag_t)) << " "
-			<< er_info[0].mag << " " << er_info[0].event_name << " " << "["
-			<< er_info[0].event_id << "]" << "(" << get_lon(er_info,lon) << ", "
+			<< " " << year << " " << get_event_time(er_info,event_time) << " "
+			<< get_time_zone(er_info,time_zone) << " "
+			<< Magnitude_Type_to_string(string_to_Magnitude_Type(get_mag_type(er_info,mag_t))) << " "
+			<< get_mag(er_info,magnitude) << " " << get_event_name(er_info,event_name) << " " << "["
+			<< get_event_id(er_info,event_id) << "]" << "(" << get_lon(er_info,lon) << ", "
 			<< get_lat(er_info,lat) << ", " << get_depth(er_info,depth) << ")" << "\n";
 
 }
@@ -828,6 +838,8 @@ string Instro_Type_to_string(Instro_Type c) {
 
 void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile, Event db[MAXSIZE], int & size,
 		int & total_co) {
+    
+    string event_id;
 
 	outputfile << total_co << "\n";
 
@@ -835,7 +847,7 @@ void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile, Event d
 		int sc = db[i].orientation.size();
 
 		for (int j = 0; j < sc; j++) {
-			outputfile << er_info[0].event_id << Network_Code_to_string(db[i].nt_name) << "."
+			outputfile << get_event_id(er_info,event_id) << Network_Code_to_string(db[i].nt_name) << "."
 					<< db[i].st_name << "." << Band_Type_to_string(db[i].b_type)
 					<< Instro_Type_to_string(db[i].Ins_type)
 					<< db[i].orientation[j] << "\n";
@@ -844,6 +856,8 @@ void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile, Event d
 
 	}
 }
+
+
 
 void set_lat(Earthquake er_info[1], ofstream& errorfile, double lat){
     if ( -60 <= lat && lat <= 60){
@@ -854,6 +868,9 @@ void set_lat(Earthquake er_info[1], ofstream& errorfile, double lat){
         exit(1);
     }
 }
+
+
+
 
 double get_lat(Earthquake er_info[1],string lat){
     return er_info[0].lat;
@@ -890,38 +907,58 @@ double get_depth(Earthquake er_info[1],string depth){
 void set_event_id(Earthquake er_info[1], ofstream& errorfile, string event_id){
     
         er_info[0].event_id = event_id;
-
 }
 
+string get_event_id(Earthquake er_info[1],string event_id){
+    return er_info[0].event_id;
+}
 
 void set_event_date(Earthquake er_info[1], ofstream& errorfile, string event_date){
     
     er_info[0].event_date = event_date;
-    
 }
+
+string get_event_date(Earthquake er_info[1],string event_date){
+    return er_info[0].event_date;
+}
+
 
 void set_event_time(Earthquake er_info[1], ofstream& errorfile, string event_time){
     
     er_info[0].event_time = event_time;
-    
+}
+
+string get_event_time(Earthquake er_info[1],string event_time){
+    return er_info[0].event_time;
 }
 
 void set_time_zone(Earthquake er_info[1], ofstream& errorfile, string time_zone){
     
     er_info[0].time_zone = time_zone;
-    
 }
+
+string get_time_zone(Earthquake er_info[1],string time_zone){
+    return er_info[0].time_zone;
+}
+
 
 void set_event_name(Earthquake er_info[1], ofstream& errorfile, string event_name){
     
     er_info[0].event_name = event_name;
-    
 }
+
+string get_event_name(Earthquake er_info[1],string event_name){
+    return er_info[0].event_name;
+}
+
 
 void set_mag_type(Earthquake er_info[1], ofstream& errorfile, string mag_t){
     
     er_info[0].mag_t = mag_t;
-    
+}
+
+string get_mag_type(Earthquake er_info[1],string mag_type){
+    return er_info[0].mag_t;
 }
 
 
@@ -930,5 +967,13 @@ void set_mag(Earthquake er_info[1], ofstream& errorfile, float  mag){
     er_info[0].mag = mag;
     
 }
+
+float get_mag(Earthquake er_info[1],string magnitude){
+    return er_info[0].mag;
+}
+
+
+
+
 
 

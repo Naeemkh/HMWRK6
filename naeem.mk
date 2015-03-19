@@ -9,7 +9,7 @@ CFLAGS = -Wall
 all: prime
 
 prime: naeem.cpp
-	$(CC) $(CFLAGS) naeem.cpp -o naeem 
+	$(CC) $(CFLAGS) io_print_handler.cpp earthquake.cpp station.cpp  naeem.cpp -o naeem 
 
 clean:
 	rm -rf naeem

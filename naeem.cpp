@@ -80,18 +80,18 @@ Band_Type string_to_Band_Type(string);
 Instro_Type string_to_instro_Type(string);
 Magnitude_Type string_to_Magnitude_Type(string);
 
-void set_lat(Earthquake er_info[1], ofstream&, double);
-void set_lon(Earthquake er_info[1], ofstream&, double);
-void set_depth(Earthquake er_info[1], ofstream&, double);
+//void set_lat(Earthquake er_info[1], ofstream&, double);
+//void set_lon(Earthquake er_info[1], ofstream&, double);
+//void set_depth(Earthquake er_info[1], ofstream&, double);
 
-void set_event_id(Earthquake er_info[1], ofstream&, string);
-void set_event_date(Earthquake er_info[1], ofstream&, string);
-void set_event_time(Earthquake er_info[1], ofstream&, string);
-void set_time_zone(Earthquake er_info[1], ofstream&, string);
-void set_event_name(Earthquake er_info[1], ofstream&, string);
-void set_mag_type(Earthquake er_info[1], ofstream&, string);
-void set_mag(Earthquake er_info[1], ofstream&, float);
-
+//void set_event_id(Earthquake er_info[1], ofstream&, string);
+//void set_event_date(Earthquake er_info[1], ofstream&, string);
+//void set_event_time(Earthquake er_info[1], ofstream&, string);
+//void set_time_zone(Earthquake er_info[1], ofstream&, string);
+//void set_event_name(Earthquake er_info[1], ofstream&, string);
+//void set_mag_type(Earthquake er_info[1], ofstream&, string);
+//void set_mag(Earthquake er_info[1], ofstream&, float);
+/*
 double get_lat(Earthquake er_info[1], string);
 double get_lon(Earthquake er_info[1], string);
 double get_depth(Earthquake er_info[1], string);
@@ -103,7 +103,7 @@ string get_time_zone(Earthquake er_info[1], string);
 string get_event_name(Earthquake er_info[1], string);
 string get_mag_type(Earthquake er_info[1], string);
 float get_mag(Earthquake er_info[1], string);
-
+*/
 void set_nt_name(Event db[MAXSIZE], int, Network_Code);
 void set_st_name(Event db[MAXSIZE], int size, string);
 void set_b_type(Event db[MAXSIZE], int size, Band_Type);
@@ -877,6 +877,7 @@ void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile,
 	}
 }
 
+/*
 void set_lat(Earthquake er_info[1], ofstream& errorfile, double lat) {
 	if (-60 <= lat && lat <= 60) {
 		er_info[0].lat = lat;
@@ -886,6 +887,7 @@ void set_lat(Earthquake er_info[1], ofstream& errorfile, double lat) {
 		exit(1);
 	}
 }
+
 
 double get_lat(Earthquake er_info[1], string lat) {
 	return er_info[0].lat;
@@ -986,6 +988,8 @@ void set_mag(Earthquake er_info[1], ofstream& errorfile, float mag) {
 float get_mag(Earthquake er_info[1], string magnitude) {
 	return er_info[0].mag;
 }
+
+*/
 
 void set_nt_name(Event db[MAXSIZE], int size, Network_Code nt_name) {
 

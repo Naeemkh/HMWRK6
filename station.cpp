@@ -2,12 +2,12 @@
 #include "io_print_handler.h"
 
 void set_nt_name(Event db[MAXSIZE], int size, Network_Code nt_name) {
-    
+
     db[size].nt_name = nt_name;
 }
 
 Network_Code get_nt_name(Event db[MAXSIZE], int size, string nt_name) {
-    
+
     return db[size].nt_name;
 }
 
@@ -28,7 +28,7 @@ Band_Type get_band_type(Event db[MAXSIZE], int size, string b_type) {
 }
 
 void set_Ins_type(Event db[MAXSIZE], int size, Instro_Type Ins_type) {
-    
+
     db[size].Ins_type = Ins_type;
 }
 
@@ -37,7 +37,7 @@ Instro_Type get_Ins_type(Event db[MAXSIZE], int size, string Ins_type) {
 }
 
 void set_orientation(Event db[MAXSIZE], int size, string orientation) {
-    
+
     db[size].orientation = orientation;
 }
 

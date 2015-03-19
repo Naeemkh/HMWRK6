@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -8,7 +7,6 @@
 #include <string.h>
 
 using namespace std;
-
 
 void print_output(ofstream&, ostream&, string);
 void print_output(ofstream&, ostream&, int);

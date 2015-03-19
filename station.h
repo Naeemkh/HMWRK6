@@ -8,27 +8,26 @@
 
 using namespace std;
 
-const int MAXSIZE=300;
+const int MAXSIZE = 300;
 
 enum Network_Code {
-	CE, CI, FA, NP, WR
+    CE, CI, FA, NP, WR
 };
 
 enum Band_Type {
-	Longperiod, Shortperiod, Broadband
+    Longperiod, Shortperiod, Broadband
 };
 
 enum Instro_Type {
-	HighGain, LowGain, Accelerometer
+    HighGain, LowGain, Accelerometer
 };
 
-
 struct Event {
-	Network_Code nt_name;
-	string st_name;
-	Band_Type b_type;
-	Instro_Type Ins_type;
-	string orientation;
+    Network_Code nt_name;
+    string st_name;
+    Band_Type b_type;
+    Instro_Type Ins_type;
+    string orientation;
 };
 
 void set_nt_name(Event db[MAXSIZE], int, Network_Code);

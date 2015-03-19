@@ -539,7 +539,6 @@ bool read_input(ifstream& inputfile, ofstream& errorfile, Event db[MAXSIZE],
 
         if (save_record_flag == 1) {
 
-            //db[size].nt_name = string_to_Network_Code(nt_name);
             set_nt_name(db, size, string_to_Network_Code(nt_name));
             set_st_name(db, size, st_name);
             set_b_type(db, size, string_to_Band_Type(b_type));
@@ -547,7 +546,7 @@ bool read_input(ifstream& inputfile, ofstream& errorfile, Event db[MAXSIZE],
             set_orientation(db, size, orientation);
 
             total_co = total_co + orientation.size();
-
+            
             size++;
 
         } else {
@@ -555,7 +554,7 @@ bool read_input(ifstream& inputfile, ofstream& errorfile, Event db[MAXSIZE],
         }
         total_entry++;
     }
-    valid_counter = total_entry - invalid_counter;
+    valid_counter = total_entry - invalid_counter - 1;
     return true;
 }
 
@@ -588,12 +587,25 @@ bool is_instrument_valid(string Ins_type) {
     return ins_flag;
 }
 
+//////////////////////////////////////////
+
 bool is_station_valid(string st_name) {
     bool st_flag = 0;
     string ss = uppercase(st_name);
     int sn = st_name.size();
-
-    if (sn == 3 && ss == st_name) {
+    
+    stringstream st_sst;
+    int st_in;
+    string st_string;
+    
+    st_sst << st_name;
+    st_sst >> st_in;
+    st_sst << st_in;
+    st_sst >> st_string;
+    
+    //cout << "station name: " << st_name << "station in: " << st_in << "station st" << st_string << "\n";
+    
+    if (sn == 3 && ss == st_name && st_string == "") {
         st_flag = 1;
     }
     if (sn == 5) {
@@ -760,7 +772,7 @@ void generate_recorded_list(Earthquake er_info[1], ofstream& outputfile,
 
         for (int j = 0; j < sc; j++) {
             outputfile << get_event_id(er_info, event_id)
-                    << get_nt_name(db, i, nt_name) << "."
+                    << Network_Code_to_string(get_nt_name(db, i, nt_name)) << "."
                     << get_st_name(db, i, st_name) << "."
                     << Band_Type_to_string(get_band_type(db, i, b_type))
                     << Instro_Type_to_string(get_Ins_type(db, i, Ins_type))
